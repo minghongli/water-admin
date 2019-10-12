@@ -103,6 +103,7 @@ export default {
     }
   },
   created () {
+    debugger;
     const { pageNo } = this.$route.params
     const localPageNum = this.pageURI && (pageNo && parseInt(pageNo)) || this.pageNum
     this.localPagination = ['auto', true].includes(this.showPagination) && Object.assign({}, this.localPagination, {
@@ -163,7 +164,7 @@ export default {
               this.localPagination.pageSize
           }) || false
           // 为防止删除数据后导致页面当前页面数据长度为 0 ,自动翻页到上一页
-          if (r.data.length === 0 && this.showPagination && this.localPagination.current > 1) {
+          if (r.length === 0 && this.showPagination && this.localPagination.current > 1) {
             this.localPagination.current--
             this.loadData()
             return
@@ -270,6 +271,8 @@ export default {
     const props = {}
     const localKeys = Object.keys(this.$data)
     const showAlert = (typeof this.alert === 'object' && this.alert !== null && this.alert.show) && typeof this.rowSelection.selectedRowKeys !== 'undefined' || this.alert
+    console.info(1212);
+    console.info(T.props)
 
     Object.keys(T.props).forEach(k => {
       const localKey = `local${k.substring(0, 1).toUpperCase()}${k.substring(1)}`
@@ -308,7 +311,7 @@ export default {
 
     return (
       <div class="table-wrapper">
-        { showAlert ? this.renderAlert() : null }
+        {/* { showAlert ? this.renderAlert() : null } */}
         { table }
       </div>
     )

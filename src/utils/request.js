@@ -11,7 +11,7 @@ import {
 
 // 创建 axios 实例
 const service = axios.create({
-  baseURL: 'http://localhost:3002', // api base_url /api  http://localhost:3002
+  baseURL: 'https://app.watercui.cn', // api base_url /api  http://localhost:3002
   timeout: 6000 // 请求超时时间
 })
 

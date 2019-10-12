@@ -9,51 +9,64 @@ export const asyncRouterMap = [
     name: 'index',
     component: BasicLayout,
     meta: { title: '首页' },
-    redirect: '/dashboard/workplace',
+    redirect: '/order/list',
     children: [
       // dashboard
-      {
-        path: '/dashboard',
-        name: 'dashboard',
-        redirect: '/dashboard/workplace',
-        component: RouteView,
-        meta: { title: '仪表盘', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
-        children: [
-          // // 外部链接
-          // {
-          //   path: 'https://www.baidu.com/',
-          //   name: 'Monitor',
-          //   meta: { title: '监控页（外部）', target: '_blank' }
-          // },
-          {
-            path: '/dashboard/workplace',
-            name: 'Workplace',
-            component: () => import('@/views/dashboard/Workplace'),
-            meta: { title: '工作台', keepAlive: true, permission: [ 'dashboard' ] }
-          },
-          {
-            path: '/dashboard/analysis',
-            name: 'Analysis',
-            component: () => import('@/views/dashboard/Analysis'),
-            meta: { title: '分析页', keepAlive: false, permission: [ 'dashboard' ] }
-          },
-        ]
-      },
+      // {
+      //   path: '/dashboard',
+      //   name: 'dashboard',
+      //   redirect: '/dashboard/workplace',
+      //   component: RouteView,
+      //   meta: { title: '仪表盘', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
+      //   children: [
+      //     // // 外部链接
+      //     // {
+      //     //   path: 'https://www.baidu.com/',
+      //     //   name: 'Monitor',
+      //     //   meta: { title: '监控页（外部）', target: '_blank' }
+      //     // },
+      //     {
+      //       path: '/dashboard/workplace',
+      //       name: 'Workplace',
+      //       component: () => import('@/views/dashboard/Workplace'),
+      //       meta: { title: '工作台', keepAlive: true, permission: [ 'dashboard' ] }
+      //     },
+      //     {
+      //       path: '/dashboard/analysis',
+      //       name: 'Analysis',
+      //       component: () => import('@/views/dashboard/Analysis'),
+      //       meta: { title: '分析页', keepAlive: false, permission: [ 'dashboard' ] }
+      //     },
+      //   ]
+      // },
 			// 订单管理
 			{
 			  path: '/order',
-			  redirect: '/order/order-list',
+			  redirect: '/order/list',
 			  component: PageView,
 			  meta: { title: '订单管理', icon: 'form', permission: [ 'form' ] },
 			  children: [
-// 			    {
-// 			      path: '/order/order-',
-// 			      name: 'BaseForm',
-// 			      component: () => import('@/views/form/BasicForm'),
-// 			      meta: { title: '待处理订单', keepAlive: true, permission: [ 'form' ] }
-// 			    },
+          {
+            path: '/order/form/:id',
+            hidden:true,
+			      name: 'orderDetail',
+			      component: () => import('@/views/order/form'),
+			      meta: { title: '订单详情', keepAlive: false, permission: [ 'form' ] }
+          },
+          // {
+			    //   path: '/order/pending',
+			    //   name: 'PendingOrder',
+			    //   component: () => import('@/views/order/pending'),
+			    //   meta: { title: '待确认订单', keepAlive: true, permission: [ 'form' ] }
+			    // },
 			    {
-			      path: '/form/order-list',
+			      path: '/order/pending',
+			      name: 'PendingOrder',
+			      component: () => import('@/views/order/pending'),
+			      meta: { title: '待处理订单', keepAlive: true, permission: [ 'form' ] }
+			    },
+			    {
+			      path: '/order/list',
 			      name: 'StepForm',
 			      component: () => import('@/views/order/list'),
 			      meta: { title: '全部订单', keepAlive: true, permission: [ 'form' ] }
@@ -63,16 +76,30 @@ export const asyncRouterMap = [
 			// 用户管理
 			{
 			  path: '/user',
-			  redirect: '/user/user-list',
+			  redirect: '/user/list',
 			  component: PageView,
 			  meta: { title: '用户管理', icon: 'form', permission: [ 'form' ] },
 			  children: [
 			    {
-			      path: '/user/user-list',
-			      name: 'BaseForm',
+			      path: '/user/companyList',
+			      name: 'companyList',
+			      component: () => import('@/views/member/company'),
+			      meta: { title: '公司客户列表', keepAlive: true, permission: [ 'form' ] }
+          },
+          {
+            hidden:true,
+			      path: '/user/list',
+			      name: 'UserList',
 			      component: () => import('@/views/member/list'),
 			      meta: { title: '用户列表', keepAlive: true, permission: [ 'form' ] }
-			    }
+          },
+          {
+            path: '/user/companyForm/:id',
+            hidden:true,
+			      name: 'companyForm',
+			      component: () => import('@/views/member/companyForm'),
+			      meta: { title: '公司客户详情', keepAlive: false, permission: [ 'form' ] }
+          },
 			  ]
 			},
 			// 商品管理
@@ -89,7 +116,7 @@ export const asyncRouterMap = [
 			      meta: { title: '商品列表', keepAlive: true, permission: [ 'form' ] }
 			    },
 			    {
-			      path: '/goods/new',
+            path: '/goods/new',
 			      name: 'GoodsNew',
 			      component: () => import('@/views/goods/form'),
 			      meta: { title: '新增商品', keepAlive: true, permission: [ 'form' ] }

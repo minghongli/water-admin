@@ -40,17 +40,19 @@
     </a-card>
 
     <div class="ant-pro-pages-list-projects-cardList">
-      <a-list :loading="loading" :data-source="data" :grid="{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }">
+      <a-list :loading="loading" :data-source="data" :grid="{ gutter: 24, xl: 6, lg: 4, md: 4, sm: 3, xs: 2 }">
         <a-list-item slot="renderItem" slot-scope="item">
           <a-card class="ant-pro-pages-list-projects-card" hoverable @click="handleEdit(item)">
             <img slot="cover" :src="item.pic_url" :alt="item.title" />
-            <a-card-meta :title="item.title">
-              <template slot="description">
+            <a-card-meta :title="item.name">
+              <!-- <template slot="description">
                 <ellipsis :length="50">{{ item.description }}</ellipsis>
-              </template>
+              </template> -->
             </a-card-meta>
-            <div class="cardItemContent">
-              <span>{{ item.updatedAt | fromNow }}</span>
+            <div class="cardItemContent1">
+              <span>{{ item.price }}</span>
+              <!-- <span>{{ item.updatedAt | fromNow }}</span> -->
+              
               <!-- <div class="avatarList">
                 <avatar-list size="mini">
                   <avatar-list-item
@@ -116,9 +118,9 @@ export default {
       console.info(2);
       this.$router.push('/goods/new');
     },
-    handleEdit (record) {
-      console.info(1);
-      this.$router.push('/goods/form');
+    handleEdit (goods) {
+      console.info(goods);
+      this.$router.push(`/goods/form/${goods._id}`);
       //this.$emit('onEdit', record)
     },
   }
@@ -146,7 +148,7 @@ export default {
     line-height: 22px;
   }
 
-  .cardItemContent {
+  .cardItemContent1 {
     display: flex;
     height: 20px;
     margin-top: 16px;
@@ -156,7 +158,8 @@ export default {
     > span {
       flex: 1 1;
       color: rgba(0,0,0,.45);
-      font-size: 12px;
+      font-size: 14px;
+      color:red;
     }
 
     /deep/ .ant-pro-avatar-list {
